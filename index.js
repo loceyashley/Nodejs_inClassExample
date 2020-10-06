@@ -10,6 +10,10 @@ const port = process.env.PORT || 3000;
 
 //tells application to use ejs for templates
 app.set('view engine', 'ejs');
+
+//make styles pulic
+app.use(express.static("Public"));
+
 //tell app to use body parser
 app.use(bodyParser.urlencoded({extended: true}));
 
