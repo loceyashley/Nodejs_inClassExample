@@ -29,15 +29,32 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console,'MongoDB connection error'));
 
 //couple of items to list
-var tasks = ["make it to class", "feed the dog"];
-
+var tasks = [];
 //completed items
-var completed = ["extra works"];
+var completed = [];
 
 //get home page
 app.get('/',function(req, res){
+    //query to mongoDB for todo
+    Todo.find(function(err,todo){
+        if(err)
+        {
+            console.log(err);
+        }else{
+            for(i =0; i < todo.length; i++)
+            {
+                if(todo[i].done)
+                {
+                    completed.push(todo[i].item);
+                }else{
+                    tasks.push(todo[i].item);
+
+                }
+            }
+        }
+    });
     //return something to home page
-    res.render('index', {tasks: tasks}); //add completed to ejs
+    res.render('index', {tasks: tasks,completed: completed}); 
 });
 
 //add post method /add task
