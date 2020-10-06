@@ -1,24 +1,29 @@
 <html>
     <head>
-        <title> To-do List</title>
+        <title style = "color: #32a6a8;"> To-do List</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
         <link href="css/styles.css" rel="stylesheet">
     </head>
     <body>
-        <div class="container">
+    <div class="container">
         <h2 style = "color: #32a6a8;"> We have a to-do list </h2>
         <form action ="/addtask" method="POST">
-            <input type="text" name="newtask" placeholder="add new task">
+            <input type="text" name="newtask" placeholder="add new task"> 
             <button> Add a Task </button>
             <h2 style = "color: #32a6a8;"> Tasks </h2>
-            <% for(var i=0; i < tasks.length; i++){%>
-                <li><input type="checkbox" name="check" value="<%= tasks[i] %>"/><%= tasks[i] %></li>
+            <% for( var i=0; i < tasks.length; i++){ %>
+                <li><input type="checkbox" name="check" value="<%= tasks[i] %>" /><%= tasks[i] %></li>
             <% } %>
             <button formaction="/removetask" type="submit"> Remove Task </button>
         </form>
-        <h2 style = "color: #32a6a8;"> Completed tasks </h2>
-
-        <!--run ejs command in for loop to output info-->
-        </div>
+        <form action ="/deleteTodo" method="POST">
+            <h2 style = "color: #32a6a8;"> Completed task </h2>
+                <% for(var i = 0; i < completed.length; i++){ %>
+                    <li><input type="checkbox" name="delete" value="<%= completed[i] %>" /><%= completed[i] %></li>
+                <% } %>
+            <button formaction="/deleteTodo" type="submit"> Delete </button>
+        </form>
     </body>
 </html>
+
+
