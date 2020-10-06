@@ -3,6 +3,9 @@ var express = require('express');
 //require body parser
 var bodyParser = require ("body-parser");
 
+//require mongoose
+var mongoose = require("mongoose");
+
 //create express object call express
 var app = express();
 //create port information
@@ -16,6 +19,14 @@ app.use(express.static("Public"));
 
 //tell app to use body parser
 app.use(bodyParser.urlencoded({extended: true}));
+
+//connection info for mongo
+const Todo = require('./models/todo.model');
+const mongoDB ='mongodb+srv://ashleyL:k0ZMEAhou8R5hABO@cluster0.ndcuj.mongodb.net/todolist?retryWrites=true&w=majority' ;
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+let db = mongoose.connection;
+db.on('error', console.error.bind(console,'MongoDB connection error'));
 
 //couple of items to list
 var tasks = ["make it to class", "feed the dog"];
