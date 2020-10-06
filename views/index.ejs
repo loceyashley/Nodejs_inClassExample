@@ -6,17 +6,17 @@
     </head>
     <body>
         <div class="container">
-        <h2> We have a to-do list </h2>
+        <h2 style = "color: #32a6a8;"> We have a to-do list </h2>
         <form action ="/addtask" method="POST">
             <input type="text" name="newtask" placeholder="add new task">
             <button> Add a Task </button>
-            <h2> Tasks </h2>
+            <h2 style = "color: #32a6a8;"> Tasks </h2>
             <% for(var i=0; i < tasks.length; i++){%>
                 <li><input type="checkbox" name="check" value="<%= tasks[i] %>"/><%= tasks[i] %></li>
             <% } %>
             <button formaction="/removetask" type="submit"> Remove Task </button>
         </form>
-        <h2> Completed tasks </h2>
+        <h2 style = "color: #32a6a8;"> Completed tasks </h2>
 
         <!--run ejs command in for loop to output info-->
         </div>
