@@ -41,13 +41,15 @@ app.get('/',function(req, res){
         {
             console.log(err);
         }else{
+            tasks=[];
+            completed=[];
             for(i =0; i < todo.length; i++)
             {
                 if(todo[i].done)
                 {
                     completed.push(todo[i].item);
                 }else{
-                    tasks.push(todo[i].item);
+                    tasks.push(todo[i]);
 
                 }
             }
@@ -58,26 +60,47 @@ app.get('/',function(req, res){
 });
 
 //add post method /add task
-app.post('/addtask',function(req,res){
-    var newTask = req.body.newtask;
-    tasks.push(newTask);
-    //return index 
-    res.redirect('/');
+app.post('/addtask', function(req, res){
+    let newTodo = new Todo({
+        item: req.body.newtask,
+        done: false
+    })
+    newTodo.save(function(err, todo){
+        if (err){
+            console.log(err)
+        } else {
+            //return index
+            res.redirect('/');
+        }
+    });
 });
 
 //remove task
 app.post('/removetask', function(req,res){
-    var removeTask = req.body.check;
-    //push to completed
-    if(typeof removeTask === 'string'){
-        tasks.splice(tasks.indexOf(removeTask), 1);
-    }else if(typeof removeTask === 'object'){
-        for(var i = 0; i < removeTask.length; i++){
-            tasks.splice(tasks.indexOf(removeTask[i]), 1);
+    var id = req.body.check;
+    if(typeof id === 'string'){
+        Todo.updateOne({_id: id}, {done:true}, function(err){
+            if(err){
+                console.log(err);
+            }
+        })
+    }else if(typeof id === 'object'){
+        for(var i = 0; i < id.length; i++){
+            Todo.updateOne({_id: id[i]}, {done:true}, function(err){
+                if(err){
+                    console.log(err);
+                }
+        })
         }
     }
     res.redirect('/');
 });
+
+app.post('/deleteTodo', function(){
+    // write the function for delete using ID
+    // handle for single and multiple delete requests (req.body.delete)
+    // Todo.deleteOne(id, function(err){})
+})
 
 //server setup 
 app.listen(port,function(){

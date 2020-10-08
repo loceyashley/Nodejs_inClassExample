@@ -12,17 +12,18 @@
             <button> Add a Task </button>
             <h2 style = "color: #32a6a8;"> Tasks </h2>
             <% for( var i=0; i < tasks.length; i++){ %>
-                <li><input type="checkbox" name="check" value="<%= tasks[i] %>" /><%= tasks[i] %></li>
+                <li><input type="checkbox" name="check" value="<%= tasks[i]._id %>" /><%= tasks[i].item %></li>
             <% } %>
             <button formaction="/removetask" type="submit"> Remove Task </button>
         </form>
         <form action ="/deleteTodo" method="POST">
             <h2 style = "color: #32a6a8;"> Completed task </h2>
                 <% for(var i = 0; i < completed.length; i++){ %>
-                    <li><input type="checkbox" name="delete" value="<%= completed[i] %>" /><%= completed[i] %></li>
+                    <li><input type="checkbox" name="delete" value="<%= completed[i]._id %>" /><%= completed[i].item %></li>
                 <% } %>
             <button formaction="/deleteTodo" type="submit"> Delete </button>
         </form>
+    </div>
     </body>
 </html>
 
